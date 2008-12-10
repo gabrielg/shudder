@@ -1,0 +1,10 @@
+RUNNING TESTS:
+
+Have Spidermonkey installed and make sure it's been compiled with JS_HAS_FILE_OBJECT=1
+
+On a Mac:
+
+sudo port install spidermonkey +fileobject
+sudo port install javascript-lint (for lint tests)
+
+Run Rake to run the tests
