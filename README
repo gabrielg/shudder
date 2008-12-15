@@ -1,3 +1,9 @@
+I MADE THE SOMETIMES UNFORTUNATE MISTAKE OF USING GIT SUBMODULES. 
+
+We use Ersatz ( http://github.com/centro/ersatz/tree ), and it's submoduled in.
+
+So if things don't seem to be working right, make sure you did the submodule init/update dance.
+
 RUNNING TESTS:
 
 Have Spidermonkey installed and make sure it's been compiled with JS_HAS_FILE_OBJECT=1

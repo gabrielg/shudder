@@ -1,0 +1,3 @@
+[submodule "vendor/ersatz"]
+	path = vendor/ersatz
+	url = git@github.com:centro/ersatz.git

@@ -14,7 +14,7 @@ namespace :test do
   desc "Runs JS Lint against all JS files"
   task :jslint do
     puts("Running JS Lint...")
-    Dir.glob((Pathname.new(__FILE__).parent + "{test,validations}/**/*.js")).each do |t|
+    Dir.glob((Pathname.new(__FILE__).parent + "{test,lib}/**/*.js")).each do |t|
       pid = fork { exec("jsl -conf config/jsl.conf -nologo -nosummary -process #{t}") }
       Process.waitpid(pid)
     end
