@@ -1,5 +1,5 @@
 #!/usr/bin/env js
-load("lib/bootstrapper.js");
+load(environment['_'].match('(.*)/(.*)$')[1] + "/lib/bootstrapper.js");
 (function() {
   var findTests = function(testDir) {
     var testFiles = [];
