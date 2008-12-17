@@ -23,6 +23,6 @@ load("lib/bootstrapper.js");
     runner.runTests();
   };
   
-  loadTests(findTests(__DIR__ + "/test"));
+  loadTests(findTests(environment['TESTS'] || (__DIR__ + "/test")));
   runTests();
 })();
