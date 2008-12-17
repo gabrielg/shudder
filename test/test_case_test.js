@@ -4,16 +4,22 @@ TestCase.define("Test Cases", function(){
     
     this.context("regardless of any tests being specified", function(){
     
+      this.should("add itself to the tests collection", function(){
+        var newCase = TestCase.define("testing", function() { });
+        this.assertEqual(newCase, TestCase.cases[TestCase.cases.length - 1]);
+        TestCase.cases.pop();
+      });
+      
       this.should("not define the case when instantiating the object", function(){
         var definitionFunction = function(){};
         mock(definitionFunction).expects('call').never();
-        var testCase = new TestCase('a test testcase', definitionFunction);      
+        var testCase = new TestCase('a test testcase', definitionFunction);
       });
     
       this.should("call the case definition function in the context of the case with defineCase()", function(){
         var definitionFunction = function(){};
         var testCase = new TestCase('a test testcase', definitionFunction);
-        mock(definitionFunction).expects('call').with(testCase);
+        mock(definitionFunction).expects('call').having(testCase);
         testCase.defineCase();
       });    
     
@@ -22,13 +28,14 @@ TestCase.define("Test Cases", function(){
         var originalDefineCase = TestCase.prototype.defineCase;
         var defineCalled = false;
         try { 
-          TestCase.prototype.defineCase = function() { defineCalled = true };
+          TestCase.prototype.defineCase = function() { defineCalled = true; };
           var newCase = TestCase.define("testing", function() { });
+          TestCase.cases.pop();
         } finally {
           TestCase.prototype.defineCase = originalDefineCase;
         }
         this.assert(defineCalled);
-      }),
+      });
       
       this.should("have a case name", function(){
         var testCase = new TestCase('a test testcase', function(){});
@@ -66,7 +73,7 @@ TestCase.define("Test Cases", function(){
     
       this.setup(function(){
         this.testCase = new TestCase('a test testcase', function(){
-          this.should("be awesome", function(){ })
+          this.should("be awesome", function(){ });
         });
         this.testCase.defineCase();
       }); // setup
@@ -93,14 +100,14 @@ TestCase.define("Test Cases", function(){
     
       this.setup(function(){
         this.testCase = new TestCase('a test testcase', function(){
-          this.setup(function(){ })
-          this.setup(function(){ })
+          this.setup(function(){ });
+          this.setup(function(){ });
           
-          this.should("be awesome", function(){ })
+          this.should("be awesome", function(){ });
           
-          this.teardown(function(){ })
-          this.teardown(function(){ })
-          this.teardown(function(){ })
+          this.teardown(function(){ });
+          this.teardown(function(){ });
+          this.teardown(function(){ });
         });
         this.testCase.defineCase();
       }); // setup
@@ -124,4 +131,4 @@ TestCase.define("Test Cases", function(){
     }); // with tests, setups, teardowns
     
   }); // when being defined
-}).run();
+})
