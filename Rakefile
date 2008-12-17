@@ -1,15 +1,11 @@
-task :default => %w[test:suitescripts test:jslint]
-task :test => %w[test:suitescripts]
+task :default => %w[test:shudder test:jslint]
+task :test => %w[test:shudder]
 require 'pathname'
 
 namespace :test do
-  desc "Runs the suitescript tests."
-  task :suitescripts do
-    cmd_parts = Dir.glob((Pathname.new(__FILE__).parent + "test/**/*_test.js")).inject([]) do |parts,tfile|
-      parts << "-f" << tfile
-    end
-    cmd_parts.concat(["-f", "lib/shudder/runner.js", "-e", "var runner = new TestCase.Runner; runner.runTests();"])
-    pid = fork { exec("js", "-f", "lib/bootstrapper.js", *cmd_parts) }
+  desc "Runs the shudder tests."
+  task :shudder do
+    pid = fork { exec("js", "-f", "run_tests.js") }
     Process.waitpid(pid)
   end
   
